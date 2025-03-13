@@ -1,0 +1,46 @@
+label{
+
+color: rgb(255, 0, 85);
+font-weight: bold;
+
+}
+
+input{
+
+width: 220px;
+border-radius: 4px;
+
+}
+
+textarea{
+
+    width: 220px;
+    border-radius: 4px;
+      
+}
+
+button{
+
+    width: 100px;
+    height: 30px;
+    color:  black;
+    background-color: white;
+}
+
+button:hover{
+
+    color:rgb(255, 0, 85);
+    background-color: rgb(165, 165, 170);
+    font-weight: bold;
+}
+
+form{
+
+    text-align: center;
+}
+
+h1{
+
+    text-align: center;
+}
+
