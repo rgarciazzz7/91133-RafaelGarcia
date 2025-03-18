@@ -1,0 +1,87 @@
+/*Zera as configurações da página*/
+
+*{
+
+margin: 0;   
+/*Zera a margem*/
+
+padding: 0;  
+/*Zera espaço*/
+
+box-sizing: border-box;  
+/*Zera bordas*/
+
+}
+
+header{
+
+background-color: rgb(20, 8, 8);
+margin: 15px;
+padding: 30px;
+
+}
+
+ul li{
+
+    /*Tira as bolinhas*/
+    list-style: none;
+    display: inline;
+    padding: 8px;
+
+}
+
+a{
+
+/*Tira o sublinhado*/
+text-decoration: none;
+color:rgb(1, 253, 43);
+font-weight: bold;
+font-size: 18pt;
+cursor: pointer;
+
+}
+
+a:hover{
+
+color:rgb(1, 253, 43);
+text-decoration: overline;
+padding: 12px;
+transition: 5ms;
+
+}
+
+
+section{
+
+margin:50px;
+
+}
+
+h2{
+
+    font-weight: bold;
+    font-size: 15pt;
+    background-color: rgb(20, 8, 8);
+    color:rgb(1, 253, 43);
+   
+    
+    
+
+}
+
+#font-type{
+
+font-family: 'Lucida Sans', 'Lucida Sans Regular' , 'Lucida Grande', 'Lucida Sans Unicode' , Geneva, Verdana, sans-serif;
+
+}
+
+.rodape{
+
+text-align: center;
+
+}
+
+
+
+
+
