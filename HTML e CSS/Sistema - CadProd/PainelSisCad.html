@@ -10,68 +10,99 @@
 
 <body>
 
-    <h1>Bem-vindo(a) ao CadProd - 1.0</h1>
-    <p id="userWelcome">Carregando...</p>
+    <h1>Bem-vindo(a) ao CadProd - 2.0</h1>
+<p id="userWelcome">Carregando...</p>
 
-    <h2>Cadastro de Produtos</h2>
+<h2>Cadastro de Produtos</h2>
 
-    <form id="productForm">
-        <label for="produto">Nome do Produto:</label>
-        <input type="text" id="produto" name="produto" placeholder="Informe o nome do produto" required><br><br>
+<form id="productForm">
+    <label for="produto">Nome do Produto:</label>
+    <input type="text" id="produto" name="produto" placeholder="Informe o nome do produto" required><br><br>
 
-        <label for="quantidade">Quantidade:</label>
-        <input type="number" id="quantidade" name="quantidade" placeholder="Informe a quantidade" required><br><br>
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" name="quantidade" placeholder="Informe a quantidade" required><br><br>
 
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" name="categoria">
-            <option value="Papelaria">Papelaria</option>
-            <option value="Eletrônicos">Eletrônicos</option>
-            <option value="Roupas">Roupas</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Outros">Outros</option>
-        </select><br><br>
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" name="categoria">
+        <option value="Papelaria">Papelaria</option>
+        <option value="Eletrônicos">Eletrônicos</option>
+        <option value="Roupas">Roupas</option>
+        <option value="Alimentos">Alimentos</option>
+        <option value="Outros">Outros</option>
+    </select><br><br>
 
-        <label for="preco">Preço (R$):</label>
-        <input type="number" id="preco" name="preco" placeholder="Informe o preço do produto" step="0.01" required><br><br>
+    <label for="preco">Preço (R$):</label>
+    <input type="number" id="preco" name="preco" placeholder="Informe o preço do produto" step="0.01" required><br><br>
 
-        <label for="descricao">Descrição:</label><br>
-        <textarea id="descricao" name="descricao" rows="4" cols="40" placeholder="Detalhes do produto..."></textarea><br><br>
+    <label for="descricao">Descrição:</label><br>
+    <textarea id="descricao" name="descricao" rows="4" cols="40" placeholder="Detalhes do produto..."></textarea><br><br>
 
-        <button type="submit">Cadastrar Produto</button>
-    </form>
+    <p id="total">Total: R$ 0.00</p>
 
-    <button id="logoutBtn">Sair</button>
+    <button type="submit">Cadastrar Produto</button>
+</form>
 
-    <script>
+<button id="logoutBtn">Sair</button>
+
+<script>
+    const username = localStorage.getItem("username");
+
+    if (username) {
+        document.getElementById("userWelcome").textContent = `Bem-vindo, ${username}!`;
+    } else {
+        document.getElementById("userWelcome").textContent = "Usuário não encontrado.";
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        localStorage.removeItem("username");
+        window.location.href = "IndexCadProd.html";
+    });
+
+    function calcular() {
+        let preco = parseFloat(document.getElementById('preco').value) || 0;
+        let quantidade = parseInt(document.getElementById('quantidade').value) || 0;
+
+        let total = preco * quantidade;
+
+        document.getElementById('total').innerText = 'Total: R$ ' + total.toFixed(2);
+
+        return total; 
+    }
+
+    document.getElementById("preco").addEventListener("input", calcular);
+    document.getElementById("quantidade").addEventListener("input", calcular);
+
+    document.getElementById("productForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const total = calcular();
+
+        const produto = document.getElementById("produto").value;
+        const quantidade = document.getElementById("quantidade").value;
+        const categoria = document.getElementById("categoria").value;
+        const preco = document.getElementById("preco").value;
+        const descricao = document.getElementById("descricao").value;
+
+        alert(`Produto cadastrado:\n\nNome: ${produto}\nQuantidade: ${quantidade}\nCategoria: ${categoria}\nPreço Unitário: R$ ${parseFloat(preco).toFixed(2)}\nTotal: R$ ${total.toFixed(2)}\nDescrição: ${descricao}`);
         
-        const username = localStorage.getItem("username");
+        let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
 
-        if (username) {
-            document.getElementById("userWelcome").textContent = `Bem-vindo, ${username}!`;
-        } else {
-            document.getElementById("userWelcome").textContent = "Usuário não encontrado.";
-        }
+produtos.push({
+    nome: produto,
+    quantidade: parseInt(quantidade),
+    categoria: categoria,
+    preco: parseFloat(preco),
+    total: total,
+    descricao: descricao
+});
 
-        document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.removeItem("username");
-            window.location.href = "IndexCadProd.html";
-        });
+localStorage.setItem("produtos", JSON.stringify(produtos));
 
-        document.getElementById("productForm").addEventListener("submit", function (event) {
-            event.preventDefault();
 
-            const produto = document.getElementById("produto").value;
-            const quantidade = document.getElementById("quantidade").value;
-            const categoria = document.getElementById("categoria").value;
-            const preco = document.getElementById("preco").value;
-            const descricao = document.getElementById("descricao").value;
-
-            alert(`Produto cadastrado:\n\nNome: ${produto}\nQuantidade: ${quantidade}\nCategoria: ${categoria}\nPreço: R$ ${preco}\nDescrição: ${descricao}`);
-
-            
-            this.reset();
-        });
-    </script>
+        this.reset();
+        document.getElementById("total").innerText = 'Total: R$ 0.00';
+    });
+</script>
 
 </body>
 </html>

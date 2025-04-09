@@ -22,3 +22,4 @@ document.getElementById('loginForm').addEventListener("submit", function(event){
     alert("Login bem sucedido");
     window.location.href = "PainelSisCad.html";
 });
+
